@@ -12,13 +12,9 @@ struct ContentView: View {
                 case .today:
                     TodayView()
                 case .goals:
-                    Text("Goals View")
-                        .foregroundColor(Theme.Colors.textPrimary)
-                        .font(Theme.manrope(14))
+                    GoalsView()
                 case .notes:
-                    Text("Notes View")
-                        .foregroundColor(Theme.Colors.textPrimary)
-                        .font(Theme.manrope(14))
+                    NotesView()
                 case .settings:
                     Text("Settings View")
                         .foregroundColor(Theme.Colors.textPrimary)
