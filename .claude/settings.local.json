@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/Users/pardeepkumar/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh --project-dir /Users/pardeepkumar/code/self-projects/desktop-task-widget)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git -C /Users/pardeepkumar/code/self-projects/desktop-task-widget rev-parse HEAD)",
+      "Bash(which xcodegen:*)",
+      "Bash(cd /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow && swift build 2>&1)",
+      "Bash(cat > .gitignore << 'EOF'\n.DS_Store\n.build/\n*.o\n*.d\nEOF\ngit add TaskFlow/ && git status)",
+      "Bash(swift build:*)",
+      "Bash(mkdir -p /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow/Sources/TaskFlow/Resources/Fonts && curl -L \"https://github.com/sharanda/manrope/releases/download/v4.505/Manrope.zip\" -o /tmp/manrope.zip 2>&1 | tail -5)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -L \"https://fonts.google.com/download?family=Manrope\" -o /tmp/manrope_gf.zip)",
+      "Bash(curl -A \"Mozilla/5.0\" -L \"https://fonts.google.com/download?family=Manrope\" -o /tmp/manrope_gf2.zip 2>&1 | tail -2 && file /tmp/manrope_gf2.zip)",
+      "Bash(curl -L \"https://github.com/google/fonts/raw/main/ofl/manrope/Manrope%5Bwght%5D.ttf\" -o /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow/Sources/TaskFlow/Resources/Fonts/Manrope-VariableFont_wght.ttf 2>&1 | tail -3 && file /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow/Sources/TaskFlow/Resources/Fonts/Manrope-VariableFont_wght.ttf)",
+      "Bash(brew install:*)",
+      "Bash(cd /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow && xcodegen generate 2>&1)",
+      "Bash(xcodebuild -scheme TaskFlow -destination 'platform=macOS' build 2>&1 | tail -5)",
+      "Bash(open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
+      "Bash(xcodebuild -scheme TaskFlow -destination 'platform=macOS' build 2>&1 | tail -3)",
+      "Bash(cd /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow && xcodegen generate 2>&1 && xcodebuild -scheme TaskFlow -destination 'platform=macOS' build 2>&1 | tail -3)",
+      "Bash(pkill -x TaskFlow 2>/dev/null; sleep 1; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)"
+    ]
+  }
+}

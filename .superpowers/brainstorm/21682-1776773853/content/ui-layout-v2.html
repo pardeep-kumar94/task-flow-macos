@@ -1,0 +1,61 @@
+<h2>Sidebar Layout — Glassmorphic Style</h2>
+<p class="subtitle">Frosted glass aesthetic with translucent layers and subtle blur</p>
+
+<div style="display:flex;justify-content:center;margin-top:20px;">
+  <div style="background:linear-gradient(135deg,#1a0533 0%,#0a1628 50%,#0d2137 100%);border-radius:16px;padding:20px;width:440px;">
+    <!-- Simulated menu bar context -->
+    <div style="text-align:right;padding:0 8px 10px;font-size:11px;color:#888;">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle,#f97316,#ea580c);margin-right:2px;vertical-align:middle;"></span>
+      menu bar
+    </div>
+    <!-- Popover -->
+    <div style="background:rgba(255,255,255,0.06);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:14px;border:1px solid rgba(255,255,255,0.1);overflow:hidden;display:flex;min-height:340px;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05) inset;">
+      <!-- Sidebar -->
+      <div style="width:56px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.06);padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <!-- Active icon -->
+        <div style="width:36px;height:36px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 0 12px rgba(74,222,128,0.1);">✓</div>
+        <!-- Goals -->
+        <div style="width:36px;height:36px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.2s;">🎯</div>
+        <!-- Notes -->
+        <div style="width:36px;height:36px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;">📝</div>
+        <!-- Spacer -->
+        <div style="flex:1;"></div>
+        <!-- Settings -->
+        <div style="width:36px;height:36px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#555;">⚙</div>
+      </div>
+      <!-- Main content -->
+      <div style="flex:1;padding:16px;">
+        <!-- Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div>
+            <div style="font-size:15px;font-weight:600;color:#f0f0f0;letter-spacing:-0.3px;">Today</div>
+            <div style="font-size:11px;color:#666;margin-top:2px;">3 tasks · 1 done</div>
+          </div>
+          <div style="font-size:11px;color:rgba(74,222,128,0.7);background:rgba(74,222,128,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(74,222,128,0.15);">33%</div>
+        </div>
+        <!-- Task items -->
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <!-- Completed task -->
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;">
+            <div style="width:18px;height:18px;border-radius:5px;background:rgba(74,222,128,0.15);border:1.5px solid rgba(74,222,128,0.4);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ade80;">✓</div>
+            <span style="font-size:13px;color:#555;text-decoration:line-through;">Review PR #42</span>
+          </div>
+          <!-- Active task -->
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
+            <div style="width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(255,255,255,0.15);"></div>
+            <span style="font-size:13px;color:#e0e0e0;">Write API docs</span>
+          </div>
+          <!-- Active task -->
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
+            <div style="width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(255,255,255,0.15);"></div>
+            <span style="font-size:13px;color:#e0e0e0;">Deploy staging build</span>
+          </div>
+        </div>
+        <!-- Add task -->
+        <div style="margin-top:10px;padding:10px;border:1px dashed rgba(255,255,255,0.08);border-radius:10px;text-align:center;color:rgba(255,255,255,0.2);font-size:12px;cursor:pointer;">+ Add task</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p style="color:#aaa;font-size:13px;margin-top:20px;text-align:center;">Glassmorphic sidebar layout with frosted glass layers, translucent backgrounds, and subtle glow effects.</p>

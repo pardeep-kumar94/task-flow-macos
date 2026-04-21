@@ -78,6 +78,7 @@ struct TodayView: View {
                                 Button("Delete", role: .destructive) {
                                     withAnimation {
                                         modelContext.delete(task)
+                                        try? modelContext.save()
                                     }
                                 }
                             }
@@ -132,6 +133,7 @@ struct TodayView: View {
         }
         let task = DailyTask(title: title, sortOrder: todayTasks.count)
         modelContext.insert(task)
+        try? modelContext.save()
         newTaskTitle = ""
         isAddingTask = false
     }

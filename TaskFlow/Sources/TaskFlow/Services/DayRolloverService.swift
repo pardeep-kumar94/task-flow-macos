@@ -43,6 +43,7 @@ final class DayRolloverService {
         for task in pendingTasks {
             modelContext.delete(task)
         }
+        try? modelContext.save()
         hasUnresolvedRollover = false
         pendingTasks = []
     }
@@ -51,6 +52,7 @@ final class DayRolloverService {
         for task in pendingTasks {
             modelContext.delete(task)
         }
+        try? modelContext.save()
         hasUnresolvedRollover = false
         pendingTasks = []
     }

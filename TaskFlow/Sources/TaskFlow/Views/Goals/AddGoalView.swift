@@ -76,6 +76,7 @@ struct AddGoalView: View {
         guard !trimmed.isEmpty else { return }
         let goal = Goal(title: trimmed, timeframe: timeframe)
         modelContext.insert(goal)
+        try? modelContext.save()
         onDismiss()
     }
 }

@@ -46,6 +46,7 @@ struct NotesView: View {
                         NoteRowView(note: note) {
                             withAnimation {
                                 modelContext.delete(note)
+                                try? modelContext.save()
                             }
                         }
                     }
@@ -61,6 +62,7 @@ struct NotesView: View {
         guard !text.isEmpty else { return }
         let note = QuickNote(text: text)
         modelContext.insert(note)
+        try? modelContext.save()
         newNoteText = ""
     }
 }

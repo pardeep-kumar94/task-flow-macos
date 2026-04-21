@@ -85,6 +85,7 @@ struct GoalDetailView: View {
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     subTask.isCompleted.toggle()
+                    try? modelContext.save()
                 }
             }) {
                 ZStack {
@@ -126,6 +127,7 @@ struct GoalDetailView: View {
         let subTask = GoalSubTask(title: title, sortOrder: goal.subTasks.count)
         subTask.goal = goal
         modelContext.insert(subTask)
+        try? modelContext.save()
         newSubTaskTitle = ""
         isAddingSubTask = false
     }

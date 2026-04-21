@@ -80,6 +80,7 @@ struct GoalsView: View {
                                     Button("Delete", role: .destructive) {
                                         withAnimation {
                                             modelContext.delete(goal)
+                                            try? modelContext.save()
                                         }
                                     }
                                 }

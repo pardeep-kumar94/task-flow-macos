@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct TaskRowView: View {
+    @Environment(\.modelContext) private var modelContext
     @Bindable var task: DailyTask
 
     var body: some View {
@@ -9,6 +10,7 @@ struct TaskRowView: View {
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     task.isCompleted.toggle()
+                    try? modelContext.save()
                 }
             }) {
                 ZStack {
