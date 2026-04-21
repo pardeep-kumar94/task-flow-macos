@@ -1,14 +1,13 @@
 import SwiftUI
 import SwiftData
-import AppKit
 
 struct NotesView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \QuickNote.createdAt, order: .reverse) private var notes: [QuickNote]
+    @State private var refreshID = UUID()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Header
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Notes")
@@ -26,8 +25,7 @@ struct NotesView: View {
 
             ScrollView {
                 VStack(spacing: Theme.Dimensions.cardSpacing) {
-                    // Add note button
-                    Button(action: { showAddNoteDialog() }) {
+                    Button(action: addNote) {
                         HStack {
                             Image(systemName: "plus.circle.fill")
                                 .font(.system(size: 14))
@@ -47,13 +45,11 @@ struct NotesView: View {
                     }
                     .buttonStyle(.plain)
 
-                    // Notes list
                     ForEach(notes) { note in
                         NoteRowView(note: note) {
-                            withAnimation {
-                                modelContext.delete(note)
-                                try? modelContext.save()
-                            }
+                            modelContext.delete(note)
+                            try? modelContext.save()
+                            refreshID = UUID()
                         }
                     }
                 }
@@ -61,28 +57,19 @@ struct NotesView: View {
                 .padding(.bottom, Theme.Dimensions.contentPadding)
             }
         }
+        .id(refreshID)
     }
 
-    private func showAddNoteDialog() {
-        let alert = NSAlert()
-        alert.messageText = "Quick Note"
-        alert.informativeText = "Jot something down:"
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: "Save")
-        alert.addButton(withTitle: "Cancel")
+    private func addNote() {
+        guard let text = InputDialog.show(
+            title: "Quick Note",
+            message: "Jot something down:",
+            placeholder: "Note text"
+        ) else { return }
 
-        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 260, height: 24))
-        textField.placeholderString = "Note text"
-        alert.accessoryView = textField
-        alert.window.initialFirstResponder = textField
-
-        let response = alert.runModal()
-        if response == .alertFirstButtonReturn {
-            let text = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !text.isEmpty else { return }
-            let note = QuickNote(text: text)
-            modelContext.insert(note)
-            try? modelContext.save()
-        }
+        let note = QuickNote(text: text)
+        modelContext.insert(note)
+        try? modelContext.save()
+        refreshID = UUID()
     }
 }

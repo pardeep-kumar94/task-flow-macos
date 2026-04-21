@@ -24,7 +24,8 @@
       "Bash(pkill -a -x TaskFlow 2>/dev/null; killall TaskFlow 2>/dev/null; echo \"killed\")",
       "Bash(killall TaskFlow 2>/dev/null; echo \"killed\")",
       "Bash(xcodegen generate:*)",
-      "Bash(killall TaskFlow 2>/dev/null; sleep 1; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)"
+      "Bash(killall TaskFlow 2>/dev/null; sleep 1; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
+      "Bash(mdfind \"kMDItemFSName == 'TaskFlow.store'\" 2>/dev/null; mdfind \"kMDItemFSName == 'default.store' && kMDItemPath == '*TaskFlow*'\" 2>/dev/null)"
     ]
   }
 }

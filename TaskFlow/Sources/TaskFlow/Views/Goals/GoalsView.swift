@@ -5,7 +5,7 @@ struct GoalsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allGoals: [Goal]
     @State private var selectedGoal: Goal?
-    @State private var showAddGoal = false
+    @State private var refreshID = UUID()
 
     private func goals(for timeframe: GoalTimeframe) -> [Goal] {
         allGoals
@@ -35,6 +35,7 @@ struct GoalsView: View {
             }
         } else {
             goalsList
+                .id(refreshID)
         }
     }
 
@@ -81,6 +82,7 @@ struct GoalsView: View {
                                         withAnimation {
                                             modelContext.delete(goal)
                                             try? modelContext.save()
+                                            refreshID = UUID()
                                         }
                                     }
                                 }
@@ -90,7 +92,7 @@ struct GoalsView: View {
                     }
 
                     // Add goal
-                    AddGoalView(onDismiss: {})
+                    AddGoalView(onAdded: { refreshID = UUID() })
                         .padding(.horizontal, Theme.Dimensions.contentPadding)
                         .padding(.top, 12)
                 }

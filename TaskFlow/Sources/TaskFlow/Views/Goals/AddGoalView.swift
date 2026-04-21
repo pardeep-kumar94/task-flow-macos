@@ -1,13 +1,12 @@
 import SwiftUI
 import SwiftData
-import AppKit
 
 struct AddGoalView: View {
     @Environment(\.modelContext) private var modelContext
-    var onDismiss: () -> Void
+    var onAdded: () -> Void
 
     var body: some View {
-        Button(action: { showAddGoalDialog() }) {
+        Button(action: addGoal) {
             HStack {
                 Image(systemName: "plus.circle.fill")
                     .font(.system(size: 14))
@@ -28,43 +27,19 @@ struct AddGoalView: View {
         .buttonStyle(.plain)
     }
 
-    private func showAddGoalDialog() {
-        let alert = NSAlert()
-        alert.messageText = "New Goal"
-        alert.informativeText = "Enter goal title and select timeframe:"
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: "Add")
-        alert.addButton(withTitle: "Cancel")
+    private func addGoal() {
+        guard let result = InputDialog.showGoalDialog() else { return }
 
-        let container = NSView(frame: NSRect(x: 0, y: 0, width: 260, height: 60))
-
-        let textField = NSTextField(frame: NSRect(x: 0, y: 32, width: 260, height: 24))
-        textField.placeholderString = "Goal title"
-        container.addSubview(textField)
-
-        let popup = NSPopUpButton(frame: NSRect(x: 0, y: 0, width: 260, height: 24))
-        popup.addItems(withTitles: ["3 Month", "6 Month", "1 Year"])
-        container.addSubview(popup)
-
-        alert.accessoryView = container
-        alert.window.initialFirstResponder = textField
-
-        let response = alert.runModal()
-        if response == .alertFirstButtonReturn {
-            let title = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !title.isEmpty else { return }
-
-            let timeframe: GoalTimeframe
-            switch popup.indexOfSelectedItem {
-            case 0: timeframe = .threeMonth
-            case 1: timeframe = .sixMonth
-            default: timeframe = .oneYear
-            }
-
-            let goal = Goal(title: title, timeframe: timeframe)
-            modelContext.insert(goal)
-            try? modelContext.save()
-            onDismiss()
+        let timeframe: GoalTimeframe
+        switch result.timeframe {
+        case "6 Month": timeframe = .sixMonth
+        case "1 Year": timeframe = .oneYear
+        default: timeframe = .threeMonth
         }
+
+        let goal = Goal(title: result.title, timeframe: timeframe)
+        modelContext.insert(goal)
+        try? modelContext.save()
+        onAdded()
     }
 }

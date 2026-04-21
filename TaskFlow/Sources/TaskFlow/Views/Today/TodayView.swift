@@ -1,16 +1,16 @@
 import SwiftUI
 import SwiftData
-import AppKit
 
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allTasks: [DailyTask]
     @State private var rolloverService = DayRolloverService()
+    @State private var refreshID = UUID()
 
     private var todayTasks: [DailyTask] {
         let today = Calendar.current.startOfDay(for: .now)
         return allTasks
-            .filter { $0.date == today }
+            .filter { Calendar.current.isDate($0.date, inSameDayAs: today) }
             .sorted { $0.sortOrder < $1.sortOrder }
     }
 
@@ -74,16 +74,15 @@ struct TodayView: View {
                         TaskRowView(task: task)
                             .contextMenu {
                                 Button("Delete", role: .destructive) {
-                                    withAnimation {
-                                        modelContext.delete(task)
-                                        try? modelContext.save()
-                                    }
+                                    modelContext.delete(task)
+                                    try? modelContext.save()
+                                    refreshID = UUID()
                                 }
                             }
                     }
 
                     // Add task button
-                    Button(action: { showAddTaskDialog() }) {
+                    Button(action: addTask) {
                         HStack {
                             Image(systemName: "plus.circle.fill")
                                 .font(.system(size: 14))
@@ -107,30 +106,21 @@ struct TodayView: View {
                 .padding(.bottom, Theme.Dimensions.contentPadding)
             }
         }
+        .id(refreshID)
         .onAppear { rolloverService.startPeriodicCheck(modelContext: modelContext) }
         .onDisappear { rolloverService.stop() }
     }
 
-    private func showAddTaskDialog() {
-        let alert = NSAlert()
-        alert.messageText = "New Task"
-        alert.informativeText = "Enter the task name:"
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: "Add")
-        alert.addButton(withTitle: "Cancel")
+    private func addTask() {
+        guard let title = InputDialog.show(
+            title: "New Task",
+            message: "Enter the task name:",
+            placeholder: "Task name"
+        ) else { return }
 
-        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 260, height: 24))
-        textField.placeholderString = "Task name"
-        alert.accessoryView = textField
-        alert.window.initialFirstResponder = textField
-
-        let response = alert.runModal()
-        if response == .alertFirstButtonReturn {
-            let title = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !title.isEmpty else { return }
-            let task = DailyTask(title: title, sortOrder: todayTasks.count)
-            modelContext.insert(task)
-            try? modelContext.save()
-        }
+        let task = DailyTask(title: title, sortOrder: todayTasks.count)
+        modelContext.insert(task)
+        try? modelContext.save()
+        refreshID = UUID()
     }
 }
