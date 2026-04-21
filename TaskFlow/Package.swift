@@ -10,6 +10,9 @@ let package = Package(
         .executableTarget(
             name: "TaskFlow",
             path: "Sources/TaskFlow",
+            resources: [
+                .copy("Resources/Fonts")
+            ],
             swiftSettings: [
                 .unsafeFlags(["-parse-as-library"])
             ]
