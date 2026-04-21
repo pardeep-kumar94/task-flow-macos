@@ -5,8 +5,7 @@ import SwiftData
 struct TaskFlowApp: App {
     var body: some Scene {
         MenuBarExtra("TaskFlow", systemImage: "checklist") {
-            Text("TaskFlow — Coming Soon")
-                .padding()
+            ContentView()
         }
         .menuBarExtraStyle(.window)
         .modelContainer(for: [
