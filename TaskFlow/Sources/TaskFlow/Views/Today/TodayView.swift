@@ -6,6 +6,7 @@ struct TodayView: View {
     @Query private var allTasks: [DailyTask]
     @State private var newTaskTitle = ""
     @State private var isAddingTask = false
+    @State private var rolloverService = DayRolloverService()
 
     private var todayTasks: [DailyTask] {
         let today = Calendar.current.startOfDay(for: .now)
@@ -26,6 +27,7 @@ struct TodayView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
+
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Today")
@@ -57,6 +59,19 @@ struct TodayView: View {
             // Task list
             ScrollView {
                 VStack(spacing: Theme.Dimensions.cardSpacing) {
+                    if rolloverService.hasUnresolvedRollover {
+                        DayRolloverView(
+                            tasks: rolloverService.pendingTasks,
+                            onKeepSelected: { tasks in
+                                rolloverService.carryForward(tasks: tasks, modelContext: modelContext)
+                            },
+                            onClearAll: {
+                                rolloverService.clearAll(modelContext: modelContext)
+                            }
+                        )
+                        .padding(.bottom, 8)
+                    }
+
                     ForEach(todayTasks) { task in
                         TaskRowView(task: task)
                     }
@@ -98,6 +113,8 @@ struct TodayView: View {
                 .padding(.bottom, Theme.Dimensions.contentPadding)
             }
         }
+        .onAppear { rolloverService.startPeriodicCheck(modelContext: modelContext) }
+        .onDisappear { rolloverService.stop() }
     }
 
     private func addTask() {
