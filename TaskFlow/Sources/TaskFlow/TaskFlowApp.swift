@@ -9,5 +9,11 @@ struct TaskFlowApp: App {
                 .padding()
         }
         .menuBarExtraStyle(.window)
+        .modelContainer(for: [
+            DailyTask.self,
+            Goal.self,
+            GoalSubTask.self,
+            QuickNote.self
+        ])
     }
 }
