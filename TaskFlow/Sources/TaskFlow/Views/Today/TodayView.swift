@@ -74,6 +74,13 @@ struct TodayView: View {
 
                     ForEach(todayTasks) { task in
                         TaskRowView(task: task)
+                            .contextMenu {
+                                Button("Delete", role: .destructive) {
+                                    withAnimation {
+                                        modelContext.delete(task)
+                                    }
+                                }
+                            }
                     }
 
                     // Add task
