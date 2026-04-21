@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
     @State private var selectedTab: SidebarTab = .today
+    var iconManager: MenuBarIconManager
 
     var body: some View {
         HStack(spacing: 0) {
@@ -16,9 +18,7 @@ struct ContentView: View {
                 case .notes:
                     NotesView()
                 case .settings:
-                    Text("Settings View")
-                        .foregroundColor(Theme.Colors.textPrimary)
-                        .font(Theme.manrope(14))
+                    SettingsView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -32,5 +32,8 @@ struct ContentView: View {
                 endPoint: .bottomTrailing
             )
         )
+        .onAppear {
+            iconManager.update(modelContext: modelContext)
+        }
     }
 }

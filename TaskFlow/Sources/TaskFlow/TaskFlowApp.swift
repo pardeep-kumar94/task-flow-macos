@@ -3,9 +3,11 @@ import SwiftData
 
 @main
 struct TaskFlowApp: App {
+    @State private var iconManager = MenuBarIconManager()
+
     var body: some Scene {
         MenuBarExtra("TaskFlow", systemImage: "checklist") {
-            ContentView()
+            ContentView(iconManager: iconManager)
         }
         .menuBarExtraStyle(.window)
         .modelContainer(for: [
