@@ -1,0 +1,26 @@
+name: TaskFlow
+options:
+  bundleIdPrefix: com.pardeep.taskflow
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "15.0"
+  minimumXcodeGenVersion: "2.38"
+
+targets:
+  TaskFlow:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/TaskFlow
+    resources:
+      - path: Sources/TaskFlow/Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.pardeep.taskflow
+        INFOPLIST_FILE: Info.plist
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        SWIFT_VERSION: "5.9"
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: false
+        LD_RUNPATH_SEARCH_PATHS: "@executable_path/../Frameworks"
