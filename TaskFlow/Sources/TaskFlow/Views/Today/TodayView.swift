@@ -5,7 +5,8 @@ struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allTasks: [DailyTask]
     @State private var rolloverService = DayRolloverService()
-    @State private var refreshID = UUID()
+    @State private var showingAddSheet = false
+    @State private var newTaskTitle = ""
 
     private var todayTasks: [DailyTask] {
         let today = Calendar.current.startOfDay(for: .now)
@@ -25,7 +26,7 @@ struct TodayView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Header
+            // Header with add button
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Today")
@@ -54,6 +55,35 @@ struct TodayView: View {
             .padding(.top, Theme.Dimensions.contentPadding)
             .padding(.bottom, 14)
 
+            // Add task inline input (always visible)
+            HStack(spacing: 10) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 16))
+                    .foregroundColor(Theme.Colors.accent)
+
+                TextField("Add a task...", text: $newTaskTitle)
+                    .textFieldStyle(.plain)
+                    .font(Theme.manrope(13))
+                    .foregroundColor(Theme.Colors.textPrimary)
+                    .onSubmit { addTask() }
+
+                if !newTaskTitle.isEmpty {
+                    Button("Add") { addTask() }
+                        .font(Theme.manrope(11, weight: .semibold))
+                        .foregroundColor(Theme.Colors.accent)
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(Theme.Colors.inputBackground)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius))
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
+                    .stroke(Theme.Colors.inputBorder, lineWidth: 1)
+            )
+            .padding(.horizontal, Theme.Dimensions.contentPadding)
+            .padding(.bottom, 10)
+
             // Task list
             ScrollView {
                 VStack(spacing: Theme.Dimensions.cardSpacing) {
@@ -76,51 +106,40 @@ struct TodayView: View {
                                 Button("Delete", role: .destructive) {
                                     modelContext.delete(task)
                                     try? modelContext.save()
-                                    refreshID = UUID()
                                 }
                             }
                     }
 
-                    // Add task button
-                    Button(action: addTask) {
-                        HStack {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.system(size: 14))
-                                .foregroundColor(Theme.Colors.accent)
-                            Text("Add task")
-                                .font(Theme.manrope(12, weight: .semibold))
-                                .foregroundColor(Theme.Colors.accent)
+                    if todayTasks.isEmpty {
+                        VStack(spacing: 8) {
+                            Image(systemName: "checkmark.circle")
+                                .font(.system(size: 32))
+                                .foregroundColor(Theme.Colors.textMuted)
+                            Text("No tasks yet")
+                                .font(Theme.manrope(13))
+                                .foregroundColor(Theme.Colors.textMuted)
+                            Text("Type above to add one")
+                                .font(Theme.manrope(11))
+                                .foregroundColor(Theme.Colors.textMuted)
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Theme.Colors.accent.opacity(0.08))
-                        .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
-                                .stroke(Theme.Colors.accent.opacity(0.2), lineWidth: 1)
-                        )
+                        .padding(.top, 40)
                     }
-                    .buttonStyle(.plain)
                 }
                 .padding(.horizontal, Theme.Dimensions.contentPadding)
                 .padding(.bottom, Theme.Dimensions.contentPadding)
             }
         }
-        .id(refreshID)
         .onAppear { rolloverService.startPeriodicCheck(modelContext: modelContext) }
         .onDisappear { rolloverService.stop() }
     }
 
     private func addTask() {
-        guard let title = InputDialog.show(
-            title: "New Task",
-            message: "Enter the task name:",
-            placeholder: "Task name"
-        ) else { return }
-
+        let title = newTaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !title.isEmpty else { return }
         let task = DailyTask(title: title, sortOrder: todayTasks.count)
         modelContext.insert(task)
         try? modelContext.save()
-        refreshID = UUID()
+        newTaskTitle = ""
     }
 }
