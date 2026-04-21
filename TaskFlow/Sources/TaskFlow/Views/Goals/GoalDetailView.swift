@@ -1,11 +1,10 @@
 import SwiftUI
 import SwiftData
+import AppKit
 
 struct GoalDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var goal: Goal
-    @State private var newSubTaskTitle = ""
-    @State private var isAddingSubTask = false
 
     private var sortedSubTasks: [GoalSubTask] {
         goal.subTasks.sorted { $0.sortOrder < $1.sortOrder }
@@ -44,35 +43,25 @@ struct GoalDetailView: View {
                         subTaskRow(subTask)
                     }
 
-                    if isAddingSubTask {
-                        HStack(spacing: 10) {
-                            RoundedRectangle(cornerRadius: Theme.Dimensions.checkboxCornerRadius)
-                                .stroke(Theme.Colors.checkboxBorder, lineWidth: 1.5)
-                                .frame(width: Theme.Dimensions.checkboxSize, height: Theme.Dimensions.checkboxSize)
-
-                            TextField("Sub-task name", text: $newSubTaskTitle)
-                                .textFieldStyle(.plain)
-                                .font(Theme.manrope(13))
-                                .foregroundColor(Theme.Colors.textPrimary)
-                                .onSubmit { addSubTask() }
+                    Button(action: { showAddSubTaskDialog() }) {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(Theme.Colors.accent)
+                            Text("Add sub-task")
+                                .font(Theme.manrope(12, weight: .semibold))
+                                .foregroundColor(Theme.Colors.accent)
                         }
-                        .padding(.horizontal, 12)
+                        .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
-                        .glassCard()
-                    } else {
-                        Button(action: { isAddingSubTask = true }) {
-                            Text("+ Add sub-task")
-                                .font(Theme.manrope(12, weight: .medium))
-                                .foregroundColor(Theme.Colors.addButtonText)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
-                                        .stroke(Theme.Colors.addButtonBorder, style: StrokeStyle(lineWidth: 1, dash: [5]))
-                                )
-                        }
-                        .buttonStyle(.plain)
+                        .background(Theme.Colors.accent.opacity(0.08))
+                        .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
+                                .stroke(Theme.Colors.accent.opacity(0.2), lineWidth: 1)
+                        )
                     }
+                    .buttonStyle(.plain)
                 }
                 .padding(.horizontal, Theme.Dimensions.contentPadding)
                 .padding(.bottom, Theme.Dimensions.contentPadding)
@@ -118,17 +107,27 @@ struct GoalDetailView: View {
         .glassCard()
     }
 
-    private func addSubTask() {
-        let title = newSubTaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !title.isEmpty else {
-            isAddingSubTask = false
-            return
+    private func showAddSubTaskDialog() {
+        let alert = NSAlert()
+        alert.messageText = "New Sub-task"
+        alert.informativeText = "Enter the sub-task name:"
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Add")
+        alert.addButton(withTitle: "Cancel")
+
+        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 260, height: 24))
+        textField.placeholderString = "Sub-task name"
+        alert.accessoryView = textField
+        alert.window.initialFirstResponder = textField
+
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            let title = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !title.isEmpty else { return }
+            let subTask = GoalSubTask(title: title, sortOrder: goal.subTasks.count)
+            subTask.goal = goal
+            modelContext.insert(subTask)
+            try? modelContext.save()
         }
-        let subTask = GoalSubTask(title: title, sortOrder: goal.subTasks.count)
-        subTask.goal = goal
-        modelContext.insert(subTask)
-        try? modelContext.save()
-        newSubTaskTitle = ""
-        isAddingSubTask = false
     }
 }

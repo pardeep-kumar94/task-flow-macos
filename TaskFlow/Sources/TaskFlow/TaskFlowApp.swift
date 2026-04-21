@@ -9,16 +9,32 @@ import SwiftData
 struct TaskFlowApp: App {
     @State private var iconManager = MenuBarIconManager()
 
-    var body: some Scene {
-        MenuBarExtra("TaskFlow", systemImage: "checklist") {
-            ContentView(iconManager: iconManager)
-        }
-        .menuBarExtraStyle(.window)
-        .modelContainer(for: [
+    let container: ModelContainer
+
+    init() {
+        let schema = Schema([
             DailyTask.self,
             Goal.self,
             GoalSubTask.self,
             QuickNote.self
         ])
+        let config = ModelConfiguration(
+            "TaskFlow",
+            schema: schema,
+            isStoredInMemoryOnly: false
+        )
+        do {
+            container = try ModelContainer(for: schema, configurations: [config])
+        } catch {
+            fatalError("Failed to create ModelContainer: \(error)")
+        }
+    }
+
+    var body: some Scene {
+        MenuBarExtra("TaskFlow", systemImage: "checklist") {
+            ContentView(iconManager: iconManager)
+        }
+        .menuBarExtraStyle(.window)
+        .modelContainer(container)
     }
 }

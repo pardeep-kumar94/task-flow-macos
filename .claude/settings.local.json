@@ -20,7 +20,11 @@
       "Bash(open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
       "Bash(xcodebuild -scheme TaskFlow -destination 'platform=macOS' build 2>&1 | tail -3)",
       "Bash(cd /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow && xcodegen generate 2>&1 && xcodebuild -scheme TaskFlow -destination 'platform=macOS' build 2>&1 | tail -3)",
-      "Bash(pkill -x TaskFlow 2>/dev/null; sleep 1; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)"
+      "Bash(pkill -x TaskFlow 2>/dev/null; sleep 1; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
+      "Bash(pkill -a -x TaskFlow 2>/dev/null; killall TaskFlow 2>/dev/null; echo \"killed\")",
+      "Bash(killall TaskFlow 2>/dev/null; echo \"killed\")",
+      "Bash(xcodegen generate:*)",
+      "Bash(killall TaskFlow 2>/dev/null; sleep 1; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)"
     ]
   }
 }

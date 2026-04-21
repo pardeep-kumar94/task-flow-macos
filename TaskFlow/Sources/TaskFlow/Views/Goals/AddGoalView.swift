@@ -1,82 +1,70 @@
 import SwiftUI
 import SwiftData
+import AppKit
 
 struct AddGoalView: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var title = ""
-    @State private var timeframe: GoalTimeframe = .threeMonth
     var onDismiss: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("New Goal")
-                .font(Theme.manrope(13, weight: .semibold))
-                .foregroundColor(Theme.Colors.textPrimary)
-
-            TextField("Goal title", text: $title)
-                .textFieldStyle(.plain)
-                .font(Theme.manrope(13))
-                .foregroundColor(Theme.Colors.textPrimary)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-                .background(Theme.Colors.inputBackground)
-                .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius))
-                .overlay(
-                    RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
-                        .stroke(Theme.Colors.inputBorder, lineWidth: 1)
-                )
-
-            HStack(spacing: 6) {
-                ForEach(GoalTimeframe.allCases, id: \.self) { tf in
-                    Button(action: { timeframe = tf }) {
-                        Text(tf.rawValue)
-                            .font(Theme.manrope(11, weight: .semibold))
-                            .foregroundColor(timeframe == tf ? Theme.Colors.accent : Theme.Colors.textSecondary)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background(timeframe == tf ? Theme.Colors.sidebarIconActiveBackground : Theme.Colors.sidebarIconBackground)
-                            .clipShape(RoundedRectangle(cornerRadius: 7))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 7)
-                                    .stroke(timeframe == tf ? Theme.Colors.sidebarIconActiveBorder : Theme.Colors.sidebarIconBorder, lineWidth: 1)
-                            )
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-
+        Button(action: { showAddGoalDialog() }) {
             HStack {
-                Button("Cancel") { onDismiss() }
-                    .font(Theme.manrope(11, weight: .semibold))
-                    .foregroundColor(Theme.Colors.textSecondary)
-                    .buttonStyle(.plain)
-
-                Spacer()
-
-                Button("Add") { addGoal() }
-                    .font(Theme.manrope(11, weight: .semibold))
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 14))
                     .foregroundColor(Theme.Colors.accent)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 6)
-                    .background(Theme.Colors.sidebarIconActiveBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Theme.Colors.sidebarIconActiveBorder, lineWidth: 1)
-                    )
-                    .buttonStyle(.plain)
+                Text("Add goal")
+                    .font(Theme.manrope(12, weight: .semibold))
+                    .foregroundColor(Theme.Colors.accent)
             }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(Theme.Colors.accent.opacity(0.08))
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius))
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
+                    .stroke(Theme.Colors.accent.opacity(0.2), lineWidth: 1)
+            )
         }
-        .padding(12)
-        .glassCard()
+        .buttonStyle(.plain)
     }
 
-    private func addGoal() {
-        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
-        let goal = Goal(title: trimmed, timeframe: timeframe)
-        modelContext.insert(goal)
-        try? modelContext.save()
-        onDismiss()
+    private func showAddGoalDialog() {
+        let alert = NSAlert()
+        alert.messageText = "New Goal"
+        alert.informativeText = "Enter goal title and select timeframe:"
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Add")
+        alert.addButton(withTitle: "Cancel")
+
+        let container = NSView(frame: NSRect(x: 0, y: 0, width: 260, height: 60))
+
+        let textField = NSTextField(frame: NSRect(x: 0, y: 32, width: 260, height: 24))
+        textField.placeholderString = "Goal title"
+        container.addSubview(textField)
+
+        let popup = NSPopUpButton(frame: NSRect(x: 0, y: 0, width: 260, height: 24))
+        popup.addItems(withTitles: ["3 Month", "6 Month", "1 Year"])
+        container.addSubview(popup)
+
+        alert.accessoryView = container
+        alert.window.initialFirstResponder = textField
+
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            let title = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !title.isEmpty else { return }
+
+            let timeframe: GoalTimeframe
+            switch popup.indexOfSelectedItem {
+            case 0: timeframe = .threeMonth
+            case 1: timeframe = .sixMonth
+            default: timeframe = .oneYear
+            }
+
+            let goal = Goal(title: title, timeframe: timeframe)
+            modelContext.insert(goal)
+            try? modelContext.save()
+            onDismiss()
+        }
     }
 }

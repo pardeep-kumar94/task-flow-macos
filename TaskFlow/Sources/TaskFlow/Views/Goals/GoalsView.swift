@@ -5,7 +5,7 @@ struct GoalsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allGoals: [Goal]
     @State private var selectedGoal: Goal?
-    @State private var isAddingGoal = false
+    @State private var showAddGoal = false
 
     private func goals(for timeframe: GoalTimeframe) -> [Goal] {
         allGoals
@@ -90,26 +90,9 @@ struct GoalsView: View {
                     }
 
                     // Add goal
-                    if isAddingGoal {
-                        AddGoalView(onDismiss: { isAddingGoal = false })
-                            .padding(.horizontal, Theme.Dimensions.contentPadding)
-                            .padding(.top, 12)
-                    } else {
-                        Button(action: { isAddingGoal = true }) {
-                            Text("+ Add goal")
-                                .font(Theme.manrope(12, weight: .medium))
-                                .foregroundColor(Theme.Colors.addButtonText)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
-                                        .stroke(Theme.Colors.addButtonBorder, style: StrokeStyle(lineWidth: 1, dash: [5]))
-                                )
-                        }
-                        .buttonStyle(.plain)
+                    AddGoalView(onDismiss: {})
                         .padding(.horizontal, Theme.Dimensions.contentPadding)
                         .padding(.top, 12)
-                    }
                 }
                 .padding(.bottom, Theme.Dimensions.contentPadding)
             }

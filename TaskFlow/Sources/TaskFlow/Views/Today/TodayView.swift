@@ -1,11 +1,10 @@
 import SwiftUI
 import SwiftData
+import AppKit
 
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var allTasks: [DailyTask]
-    @State private var newTaskTitle = ""
-    @State private var isAddingTask = false
     @State private var rolloverService = DayRolloverService()
 
     private var todayTasks: [DailyTask] {
@@ -27,7 +26,6 @@ struct TodayView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
-
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Today")
@@ -84,38 +82,26 @@ struct TodayView: View {
                             }
                     }
 
-                    // Add task
-                    if isAddingTask {
-                        HStack(spacing: 10) {
-                            RoundedRectangle(cornerRadius: Theme.Dimensions.checkboxCornerRadius)
-                                .stroke(Theme.Colors.checkboxBorder, lineWidth: 1.5)
-                                .frame(width: Theme.Dimensions.checkboxSize, height: Theme.Dimensions.checkboxSize)
-
-                            TextField("Task name", text: $newTaskTitle)
-                                .textFieldStyle(.plain)
-                                .font(Theme.manrope(13))
-                                .foregroundColor(Theme.Colors.textPrimary)
-                                .onSubmit {
-                                    addTask()
-                                }
+                    // Add task button
+                    Button(action: { showAddTaskDialog() }) {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(Theme.Colors.accent)
+                            Text("Add task")
+                                .font(Theme.manrope(12, weight: .semibold))
+                                .foregroundColor(Theme.Colors.accent)
                         }
-                        .padding(.horizontal, 12)
+                        .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
-                        .glassCard()
-                    } else {
-                        Button(action: { isAddingTask = true }) {
-                            Text("+ Add task")
-                                .font(Theme.manrope(12, weight: .medium))
-                                .foregroundColor(Theme.Colors.addButtonText)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
-                                        .stroke(Theme.Colors.addButtonBorder, style: StrokeStyle(lineWidth: 1, dash: [5]))
-                                )
-                        }
-                        .buttonStyle(.plain)
+                        .background(Theme.Colors.accent.opacity(0.08))
+                        .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
+                                .stroke(Theme.Colors.accent.opacity(0.2), lineWidth: 1)
+                        )
                     }
+                    .buttonStyle(.plain)
                 }
                 .padding(.horizontal, Theme.Dimensions.contentPadding)
                 .padding(.bottom, Theme.Dimensions.contentPadding)
@@ -125,16 +111,26 @@ struct TodayView: View {
         .onDisappear { rolloverService.stop() }
     }
 
-    private func addTask() {
-        let title = newTaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !title.isEmpty else {
-            isAddingTask = false
-            return
+    private func showAddTaskDialog() {
+        let alert = NSAlert()
+        alert.messageText = "New Task"
+        alert.informativeText = "Enter the task name:"
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Add")
+        alert.addButton(withTitle: "Cancel")
+
+        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 260, height: 24))
+        textField.placeholderString = "Task name"
+        alert.accessoryView = textField
+        alert.window.initialFirstResponder = textField
+
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            let title = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !title.isEmpty else { return }
+            let task = DailyTask(title: title, sortOrder: todayTasks.count)
+            modelContext.insert(task)
+            try? modelContext.save()
         }
-        let task = DailyTask(title: title, sortOrder: todayTasks.count)
-        modelContext.insert(task)
-        try? modelContext.save()
-        newTaskTitle = ""
-        isAddingTask = false
     }
 }
