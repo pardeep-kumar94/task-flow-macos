@@ -1,6 +1,10 @@
 import SwiftUI
 import SwiftData
 
+// Note: Global keyboard shortcut (Cmd+Shift+T) to toggle the popover
+// requires NSStatusItem-based approach. MenuBarExtra doesn't support this natively.
+// This is logged as a future enhancement.
+
 @main
 struct TaskFlowApp: App {
     @State private var iconManager = MenuBarIconManager()
