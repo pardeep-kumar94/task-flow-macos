@@ -41,6 +41,14 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build
 
+      - name: Ad-hoc deep sign app
+        working-directory: TaskFlow
+        run: |
+          APP_PATH="build/Build/Products/Release/TaskFlow.app"
+          xattr -cr "$APP_PATH"
+          codesign --force --deep --sign - "$APP_PATH"
+          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+
       - name: Compute version
         id: version
         run: |
@@ -81,7 +89,13 @@ jobs:
             ### Install
             1. Download `TaskFlow-${{ steps.version.outputs.version }}.dmg` below
             2. Open the DMG and drag **TaskFlow** to your **Applications** folder
-            3. On first launch, right-click the app and choose **Open** (the build is unsigned)
+            3. Remove the quarantine flag so macOS will open the unsigned app:
+               ```bash
+               xattr -dr com.apple.quarantine /Applications/TaskFlow.app
+               ```
+               Then launch TaskFlow normally from Applications or Spotlight.
+
+            > The app is ad-hoc signed but not notarized (no Apple Developer account), so macOS Gatekeeper shows *"TaskFlow is damaged and can't be opened"* without the step above.
 
             Requires macOS 14 (Sonoma) or later.
           files: TaskFlow-${{ steps.version.outputs.version }}.dmg
