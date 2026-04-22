@@ -1,5 +1,5 @@
 # TaskFlow
-
+* Vibe Coded using Claude
 A native macOS menu bar app for managing daily tasks, long-term goals, and quick notes. Lives in your menu bar, slides open from the right edge of your screen, and optionally shows a desktop widget with a clock and task summary.
 
 ![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue) ![Swift](https://img.shields.io/badge/Swift-5.9-orange) ![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-green) ![SwiftData](https://img.shields.io/badge/SwiftData-✓-green)
