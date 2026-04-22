@@ -106,7 +106,7 @@ final class SlidingPanelController {
         panel.becomesKeyOnlyIfNeeded = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.isOpaque = false
-        panel.backgroundColor = NSColor(red: 0.059, green: 0.125, blue: 0.153, alpha: 0.92)
+        panel.backgroundColor = .clear
         panel.hasShadow = true
         panel.hidesOnDeactivate = false
 

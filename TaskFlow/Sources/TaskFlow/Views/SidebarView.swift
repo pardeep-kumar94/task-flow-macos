@@ -33,15 +33,14 @@ struct SidebarView: View {
         VStack(spacing: 4) {
             // Logo
             ZStack {
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(Theme.Colors.accentGradient)
-                    .frame(width: 34, height: 34)
+                    .frame(width: 32, height: 32)
                 Text("T")
-                    .font(.system(size: 16, weight: .black, design: .rounded))
+                    .font(.system(size: 15, weight: .black, design: .rounded))
                     .foregroundColor(.white)
             }
-            .shadow(color: Theme.Colors.accent.opacity(0.4), radius: 10)
-            .padding(.bottom, 16)
+            .padding(.bottom, 14)
 
             ForEach(SidebarTab.allCases.filter { !$0.isBottom }, id: \.self) { tab in
                 sidebarIcon(tab)
@@ -51,10 +50,10 @@ struct SidebarView: View {
                 sidebarIcon(tab)
             }
         }
-        .padding(.vertical, 16)
+        .padding(.vertical, 14)
         .padding(.horizontal, 8)
         .frame(width: Theme.Dimensions.sidebarWidth)
-        .background(.ultraThinMaterial.opacity(0.5))
+        .background(VisualEffect(material: .sidebar, blendingMode: .behindWindow))
         .overlay(
             Rectangle()
                 .frame(width: 0.5)
@@ -73,24 +72,21 @@ struct SidebarView: View {
             VStack(spacing: 4) {
                 ZStack {
                     RoundedRectangle(cornerRadius: Theme.Dimensions.sidebarIconCornerRadius, style: .continuous)
-                        .fill(isActive ? Theme.Colors.accent.opacity(0.15) : Color.clear)
+                        .fill(isActive ? Theme.Colors.accent.opacity(0.18) : Color.clear)
                         .frame(width: Theme.Dimensions.sidebarIconSize, height: Theme.Dimensions.sidebarIconSize)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: Theme.Dimensions.sidebarIconCornerRadius, style: .continuous)
-                                .stroke(isActive ? Theme.Colors.accent.opacity(0.3) : Color.clear, lineWidth: 0.5)
-                        )
-                        .shadow(color: isActive ? Theme.Colors.accent.opacity(0.3) : .clear, radius: 8)
 
                     Image(systemName: tab.icon)
                         .font(.system(size: 15, weight: isActive ? .semibold : .regular))
                 }
 
                 Text(tab.label)
-                    .font(.system(size: 9, weight: isActive ? .bold : .medium))
+                    .font(.system(size: 9, weight: isActive ? .semibold : .medium))
             }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 6)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .foregroundColor(isActive ? Theme.Colors.accent : Color.white.opacity(0.45))
-        .padding(.vertical, 2)
+        .foregroundColor(isActive ? Theme.Colors.accent : Theme.Colors.textSecondary)
     }
 }
