@@ -26,7 +26,17 @@
       "Bash(xcodegen generate:*)",
       "Bash(killall TaskFlow 2>/dev/null; sleep 1; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
       "Bash(mdfind \"kMDItemFSName == 'TaskFlow.store'\" 2>/dev/null; mdfind \"kMDItemFSName == 'default.store' && kMDItemPath == '*TaskFlow*'\" 2>/dev/null)",
-      "Bash(killall TaskFlow 2>/dev/null)"
+      "Bash(killall TaskFlow 2>/dev/null)",
+      "Bash(killall TaskFlow 2>/dev/null; cd /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow && xcodegen generate 2>&1 | tail -1 && xcodebuild -scheme TaskFlow -destination 'platform=macOS' build 2>&1 | tail -1)",
+      "Bash(killall TaskFlow 2>/dev/null; xcodegen generate 2>&1 | tail -1 && xcodebuild -scheme TaskFlow -destination 'platform=macOS' build 2>&1 | tail -1)",
+      "Bash(killall TaskFlow)",
+      "Read(//Users/pardeepkumar/Library/Developer/Xcode/DerivedData/**)",
+      "Bash(xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build 2>&1 | tail -5)",
+      "Bash(killall TaskFlow 2>/dev/null; xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build 2>&1 | tail -3 && open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
+      "Bash(killall TaskFlow 2>/dev/null; xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build 2>&1 | grep -E \"error:|BUILD\")",
+      "Bash(xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build 2>&1 | grep -E \"error:|BUILD\")",
+      "Bash(killall TaskFlow 2>/dev/null; xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build 2>&1 | grep -E \"error:|BUILD\" && open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
+      "Bash(killall TaskFlow 2>/dev/null; xcodegen generate 2>&1 | tail -1 && xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build 2>&1 | grep -E \"error:|BUILD\" && open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)"
     ]
   }
 }

@@ -1,4 +1,47 @@
+# macOS
 .DS_Store
-.build/
+._*
+.AppleDouble
+.LSOverride
+
+# Xcode — generated project (recreate with `xcodegen generate`)
+TaskFlow/TaskFlow.xcodeproj
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# Build artifacts
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
 *.o
 *.d
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# App data
+*.store
+
+# Environment / secrets
+.env
+*.pem
+*.p12
+*.key
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*~

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05B27BCCF6163E9FCAFE9241 /* DesktopWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8085C25452E38F9B0BB9561 /* DesktopWidgetView.swift */; };
 		0C6AB58462445A88EB722FBF /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953696381CEF2EA1D934A35D /* SidebarView.swift */; };
 		178E941222C609826C5CCD79 /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B2E28B4A2F9B197890B6D /* DailyTask.swift */; };
 		211B5EF72079F2435A44C0D3 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC38539FB7CE890D13E9097C /* Theme.swift */; };
@@ -15,7 +16,10 @@
 		3738188416849D0DB2500988 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1743D919B90144EBB128CD2B /* SettingsView.swift */; };
 		393A40BEA601AC49A8518065 /* GoalSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45913874C726B65F2F99A9AF /* GoalSubTask.swift */; };
 		3F237F790B86A3816AFAF37C /* Manrope-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7856FD6DC18B003320D37304 /* Manrope-VariableFont_wght.ttf */; };
+		419F867484011336810EF7B2 /* DesktopWidgetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56A91E0AE178D7653D5AD02 /* DesktopWidgetController.swift */; };
 		67C1F68617B396D18D9419E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9119CB3A7C4A61285F5B7608 /* ContentView.swift */; };
+		757EFE25440EE70CFA3639D6 /* SlidingPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E412FD8A0ED7AB76A0387BF /* SlidingPanelController.swift */; };
+		7B8B8EA89F1574B28F526EF2 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444011675B9A208697F4EF95 /* HistoryView.swift */; };
 		7EEB6E5396A4CE9C2ABF9C97 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FC8A500734F8B4D9384E44 /* TaskRowView.swift */; };
 		878FDBCA40406A0EBE6DC99C /* MenuBarIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101948006C88B6D973B07A4 /* MenuBarIconManager.swift */; };
 		914CF5C2AD44DFB9274797C7 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF60518732D97B08DF63D08 /* NotesView.swift */; };
@@ -36,6 +40,7 @@
 		1632F2C3EC7E52CAA7B6C4FC /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		1743D919B90144EBB128CD2B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		43772E4D99AC895EEA5A756C /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		444011675B9A208697F4EF95 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		45913874C726B65F2F99A9AF /* GoalSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSubTask.swift; sourceTree = "<group>"; };
 		546E744B04679775317F7429 /* InputDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDialog.swift; sourceTree = "<group>"; };
 		5C4B2E28B4A2F9B197890B6D /* DailyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTask.swift; sourceTree = "<group>"; };
@@ -46,6 +51,9 @@
 		9119CB3A7C4A61285F5B7608 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		953696381CEF2EA1D934A35D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		964F8820FA3E0C2F8FFCC285 /* NoteRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRowView.swift; sourceTree = "<group>"; };
+		9E412FD8A0ED7AB76A0387BF /* SlidingPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingPanelController.swift; sourceTree = "<group>"; };
+		B8085C25452E38F9B0BB9561 /* DesktopWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesktopWidgetView.swift; sourceTree = "<group>"; };
+		C56A91E0AE178D7653D5AD02 /* DesktopWidgetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesktopWidgetController.swift; sourceTree = "<group>"; };
 		C85A5265640881B900292C09 /* QuickNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickNote.swift; sourceTree = "<group>"; };
 		DC38539FB7CE890D13E9097C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		DFDBEE0B1986D7268D619B95 /* GoalRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRowView.swift; sourceTree = "<group>"; };
@@ -122,8 +130,10 @@
 		61BC51FB35C4E86FD090C39A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C56A91E0AE178D7653D5AD02 /* DesktopWidgetController.swift */,
 				546E744B04679775317F7429 /* InputDialog.swift */,
 				E101948006C88B6D973B07A4 /* MenuBarIconManager.swift */,
+				9E412FD8A0ED7AB76A0387BF /* SlidingPanelController.swift */,
 				DC38539FB7CE890D13E9097C /* Theme.swift */,
 			);
 			path = Utilities;
@@ -133,13 +143,23 @@
 			isa = PBXGroup;
 			children = (
 				9119CB3A7C4A61285F5B7608 /* ContentView.swift */,
+				B8085C25452E38F9B0BB9561 /* DesktopWidgetView.swift */,
 				1743D919B90144EBB128CD2B /* SettingsView.swift */,
 				953696381CEF2EA1D934A35D /* SidebarView.swift */,
 				3B17420471AEE2557A044C9D /* Goals */,
+				B5E79AEA0DB98702040FA645 /* History */,
 				18417A05AFCC69AFF9DCEF7D /* Notes */,
 				ED59674696861E1B8DB78E78 /* Today */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B5E79AEA0DB98702040FA645 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				444011675B9A208697F4EF95 /* HistoryView.swift */,
+			);
+			path = History;
 			sourceTree = "<group>";
 		};
 		B71344B25E087C344FE43F7F /* Fonts */ = {
@@ -251,11 +271,14 @@
 				178E941222C609826C5CCD79 /* DailyTask.swift in Sources */,
 				B8BE5D2AAF62B3F812EC1E1D /* DayRolloverService.swift in Sources */,
 				F966AB50A8B37E49D42F5428 /* DayRolloverView.swift in Sources */,
+				419F867484011336810EF7B2 /* DesktopWidgetController.swift in Sources */,
+				05B27BCCF6163E9FCAFE9241 /* DesktopWidgetView.swift in Sources */,
 				36FE7AD089268F6E51980344 /* Goal.swift in Sources */,
 				B849557034182D48F3893806 /* GoalDetailView.swift in Sources */,
 				E54B2A0293C9E2B2CA5BA732 /* GoalRowView.swift in Sources */,
 				393A40BEA601AC49A8518065 /* GoalSubTask.swift in Sources */,
 				B36AAC4E592C55F4CD8CD5B0 /* GoalsView.swift in Sources */,
+				7B8B8EA89F1574B28F526EF2 /* HistoryView.swift in Sources */,
 				C881CC742C3683B7558536EC /* InputDialog.swift in Sources */,
 				878FDBCA40406A0EBE6DC99C /* MenuBarIconManager.swift in Sources */,
 				2D0AB4237F0D95D0A0A5421E /* NoteRowView.swift in Sources */,
@@ -263,6 +286,7 @@
 				EB07D6F513E0063FEDA8FF37 /* QuickNote.swift in Sources */,
 				3738188416849D0DB2500988 /* SettingsView.swift in Sources */,
 				0C6AB58462445A88EB722FBF /* SidebarView.swift in Sources */,
+				757EFE25440EE70CFA3639D6 /* SlidingPanelController.swift in Sources */,
 				BFB1E9A9AFFD66A1C30065D0 /* TaskFlowApp.swift in Sources */,
 				7EEB6E5396A4CE9C2ABF9C97 /* TaskRowView.swift in Sources */,
 				211B5EF72079F2435A44C0D3 /* Theme.swift in Sources */,

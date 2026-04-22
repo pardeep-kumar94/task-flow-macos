@@ -13,6 +13,8 @@ struct ContentView: View {
                 switch selectedTab {
                 case .today:
                     TodayView()
+                case .history:
+                    HistoryView()
                 case .goals:
                     GoalsView()
                 case .notes:
@@ -23,13 +25,12 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(width: Theme.Dimensions.popoverWidth)
-        .frame(minHeight: Theme.Dimensions.popoverMinHeight)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             LinearGradient(
-                colors: [Theme.Colors.background, Theme.Colors.backgroundGradientEnd],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Theme.Colors.bgTop, Theme.Colors.bgMid, Theme.Colors.bgBottom],
+                startPoint: .top,
+                endPoint: .bottom
             )
         )
         .onAppear {

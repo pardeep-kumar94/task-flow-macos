@@ -2,43 +2,43 @@ import SwiftUI
 
 struct GoalRowView: View {
     let goal: Goal
+    @State private var isHovered = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(goal.title)
-                .font(Theme.manrope(13, weight: .medium))
-                .foregroundColor(Theme.Colors.textPrimary)
-
-            if !goal.subTasks.isEmpty {
-                HStack(spacing: 8) {
-                    GeometryReader { geometry in
-                        ZStack(alignment: .leading) {
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(Theme.Colors.progressBarBackground)
-                                .frame(height: 4)
-
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [Theme.Colors.accent.opacity(0.6), Theme.Colors.accent],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
-                                .frame(width: geometry.size.width * goal.progress, height: 4)
-                        }
-                    }
-                    .frame(height: 4)
-
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(goal.title)
+                    .font(Theme.manrope(13, weight: .semibold))
+                    .foregroundColor(Theme.Colors.textPrimary)
+                Spacer()
+                if !goal.subTasks.isEmpty {
                     Text("\(goal.completedSubTaskCount)/\(goal.subTasks.count)")
-                        .font(Theme.manrope(10, weight: .semibold))
-                        .foregroundColor(Theme.Colors.textSecondary)
-                        .frame(minWidth: 30, alignment: .trailing)
+                        .font(Theme.manrope(10, weight: .bold))
+                        .foregroundColor(Theme.Colors.accent)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Capsule())
+                        .overlay(Capsule().stroke(Theme.Colors.accent.opacity(0.2), lineWidth: 0.5))
                 }
             }
+
+            if !goal.subTasks.isEmpty {
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(Color.white.opacity(0.08)).frame(height: 4)
+                        Capsule()
+                            .fill(Theme.Colors.accent)
+                            .frame(width: max(4, geo.size.width * goal.progress), height: 4)
+                            .shadow(color: Theme.Colors.accent.opacity(0.4), radius: 4)
+                    }
+                }
+                .frame(height: 4)
+            }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
-        .glassCard()
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .glassCard(highlight: isHovered)
+        .onHover { isHovered = $0 }
     }
 }

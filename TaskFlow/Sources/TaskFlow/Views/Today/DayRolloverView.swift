@@ -4,7 +4,6 @@ struct DayRolloverView: View {
     let tasks: [DailyTask]
     var onKeepSelected: ([DailyTask]) -> Void
     var onClearAll: () -> Void
-
     @State private var selectedTaskIds: Set<UUID>
 
     init(tasks: [DailyTask], onKeepSelected: @escaping ([DailyTask]) -> Void, onClearAll: @escaping () -> Void) {
@@ -16,36 +15,38 @@ struct DayRolloverView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            Text("Carry forward?")
-                .font(Theme.manrope(13, weight: .semibold))
-                .foregroundColor(Theme.Colors.textPrimary)
+            HStack(spacing: 8) {
+                Image(systemName: "arrow.forward.circle.fill")
+                    .font(.system(size: 16))
+                    .foregroundColor(Theme.Colors.statusOrange)
+                Text("Carry forward?")
+                    .font(Theme.manrope(13, weight: .semibold))
+                    .foregroundColor(Theme.Colors.textPrimary)
+                Spacer()
+            }
 
             VStack(spacing: 4) {
                 ForEach(tasks) { task in
                     HStack(spacing: 10) {
-                        Button(action: { toggleTask(task) }) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: Theme.Dimensions.checkboxCornerRadius)
-                                    .fill(selectedTaskIds.contains(task.id) ? Theme.Colors.checkboxCheckedBackground : Color.clear)
-                                    .frame(width: Theme.Dimensions.checkboxSize, height: Theme.Dimensions.checkboxSize)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: Theme.Dimensions.checkboxCornerRadius)
-                                            .stroke(selectedTaskIds.contains(task.id) ? Theme.Colors.checkboxCheckedBorder : Theme.Colors.checkboxBorder, lineWidth: 1.5)
-                                    )
-
-                                if selectedTaskIds.contains(task.id) {
-                                    Image(systemName: "checkmark")
-                                        .font(.system(size: 10, weight: .bold))
-                                        .foregroundColor(Theme.Colors.accent)
-                                }
+                        ZStack {
+                            Circle()
+                                .fill(selectedTaskIds.contains(task.id) ? Theme.Colors.accent.opacity(0.15) : Color.clear)
+                                .frame(width: 18, height: 18)
+                            Circle()
+                                .stroke(selectedTaskIds.contains(task.id) ? Theme.Colors.accent : Theme.Colors.checkboxBorder, lineWidth: 1.5)
+                                .frame(width: 18, height: 18)
+                            if selectedTaskIds.contains(task.id) {
+                                Image(systemName: "checkmark")
+                                    .font(.system(size: 9, weight: .bold))
+                                    .foregroundColor(Theme.Colors.accent)
                             }
                         }
-                        .buttonStyle(.plain)
+                        .contentShape(Circle())
+                        .onTapGesture { toggleTask(task) }
 
                         Text(task.title)
                             .font(Theme.manrope(12))
                             .foregroundColor(selectedTaskIds.contains(task.id) ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
-
                         Spacer()
                     }
                     .padding(.horizontal, 12)
@@ -60,16 +61,12 @@ struct DayRolloverView: View {
                     onKeepSelected(selected)
                 }) {
                     Text("Keep Selected")
-                        .font(Theme.manrope(11, weight: .semibold))
-                        .foregroundColor(Theme.Colors.accent)
+                        .font(Theme.manrope(11, weight: .bold))
+                        .foregroundColor(.white)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 6)
-                        .background(Theme.Colors.sidebarIconActiveBackground)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Theme.Colors.sidebarIconActiveBorder, lineWidth: 1)
-                        )
+                        .background(Theme.Colors.accent)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                 }
                 .buttonStyle(.plain)
 
@@ -79,23 +76,18 @@ struct DayRolloverView: View {
                         .foregroundColor(Theme.Colors.textSecondary)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 6)
-                        .background(Theme.Colors.cardBackground)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Theme.Colors.cardBorder, lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
                         )
                 }
                 .buttonStyle(.plain)
             }
         }
-        .padding(14)
-        .background(Theme.Colors.inputBackground)
-        .clipShape(RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius))
-        .overlay(
-            RoundedRectangle(cornerRadius: Theme.Dimensions.cardCornerRadius)
-                .stroke(Theme.Colors.inputBorder, lineWidth: 1)
-        )
+        .padding(16)
+        .glassCard(highlight: true)
     }
 
     private func toggleTask(_ task: DailyTask) {
