@@ -2,7 +2,7 @@
 
 A native macOS menu bar app for managing daily tasks, long-term goals, and quick notes. Lives in your menu bar, slides open from the right edge of your screen, and optionally shows a desktop widget with a clock and task summary.
 
-![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue) ![Swift](https://img.shields.io/badge/Swift-5.9-orange) ![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-green) ![SwiftData](https://img.shields.io/badge/SwiftData-✓-green) [![Release](https://img.shields.io/github/v/release/fathah/task-flow-macos?label=latest&color=brightgreen)](https://github.com/fathah/task-flow-macos/releases/latest)
+![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue) ![Swift](https://img.shields.io/badge/Swift-5.9-orange) ![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-green) ![SwiftData](https://img.shields.io/badge/SwiftData-✓-green) [![Release](https://img.shields.io/github/v/release/pardeep-kumar94/task-flow-macos?label=latest&color=brightgreen)](https://github.com/fathah/task-flow-macos/releases/latest)
 
 ## Download
 
@@ -10,7 +10,13 @@ Grab the latest prebuilt DMG from the **[Releases page](https://github.com/parde
 
 1. Download `TaskFlow-vX.X.X.dmg` from the latest release
 2. Open the DMG and drag **TaskFlow** to your **Applications** folder
-3. On first launch, right-click the app and choose **Open** (the build is unsigned)
+3. Remove the macOS quarantine flag so Gatekeeper will open the unsigned app:
+   ```bash
+   xattr -dr com.apple.quarantine /Applications/TaskFlow.app
+   ```
+   Then launch **TaskFlow** normally from Applications or Spotlight.
+
+> The app is ad-hoc signed but not notarized (no Apple Developer account), so without the step above macOS shows *"TaskFlow is damaged and can't be opened"*. The `xattr` command removes the download-quarantine attribute and is only needed once per install.
 
 Requires macOS 14 (Sonoma) or later. All [past releases](https://github.com/fathah/task-flow-macos/releases) are also available.
 
