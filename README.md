@@ -6,7 +6,7 @@ A native macOS menu bar app for managing daily tasks, long-term goals, and quick
 
 ## Download
 
-Grab the latest prebuilt DMG from the **[Releases page](https://github.com/fathah/task-flow-macos/releases/latest)** — no build tools required.
+Grab the latest prebuilt DMG from the **[Releases page](https://github.com/pardeep-kumar94/task-flow-macos/releases/latest)** — no build tools required.
 
 1. Download `TaskFlow-vX.X.X.dmg` from the latest release
 2. Open the DMG and drag **TaskFlow** to your **Applications** folder
@@ -58,16 +58,21 @@ This creates `TaskFlow.xcodeproj` from the `project.yml` spec.
 ### 4. Build and run
 
 **Option A — Xcode:**
+
 ```bash
 open TaskFlow.xcodeproj
 ```
+
 Then press `Cmd + R` to build and run.
 
 **Option B — Command line:**
+
 ```bash
 xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build
 ```
+
 Then open the built app:
+
 ```bash
 open ~/Library/Developer/Xcode/DerivedData/TaskFlow-*/Build/Products/Debug/TaskFlow.app
 ```
@@ -124,18 +129,19 @@ TaskFlow/
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
-| UI Framework | SwiftUI |
-| Data Persistence | SwiftData (SQLite) |
-| Window Management | AppKit (NSPanel, NSStatusItem) |
-| Project Generation | xcodegen |
-| Minimum Target | macOS 14.0 Sonoma |
-| Font | [Manrope](https://fonts.google.com/specimen/Manrope) (falls back to system font if not installed) |
+| Component          | Technology                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| UI Framework       | SwiftUI                                                                                           |
+| Data Persistence   | SwiftData (SQLite)                                                                                |
+| Window Management  | AppKit (NSPanel, NSStatusItem)                                                                    |
+| Project Generation | xcodegen                                                                                          |
+| Minimum Target     | macOS 14.0 Sonoma                                                                                 |
+| Font               | [Manrope](https://fonts.google.com/specimen/Manrope) (falls back to system font if not installed) |
 
 ## Data Storage
 
 All data is stored locally at:
+
 ```
 ~/Library/Application Support/default.store
 ```
