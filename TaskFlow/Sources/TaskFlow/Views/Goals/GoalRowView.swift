@@ -26,7 +26,7 @@ struct GoalRowView: View {
             if !goal.subTasks.isEmpty {
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
-                        Capsule().fill(Color.white.opacity(0.08)).frame(height: 4)
+                        Capsule().fill(Theme.Colors.track).frame(height: 4)
                         Capsule()
                             .fill(Theme.Colors.accent)
                             .frame(width: max(4, geo.size.width * goal.progress), height: 4)

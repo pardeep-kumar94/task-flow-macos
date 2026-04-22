@@ -80,7 +80,7 @@ struct DayRolloverView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         .overlay(
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                                .stroke(Theme.Colors.inputBorder, lineWidth: 0.5)
                         )
                 }
                 .buttonStyle(.plain)

@@ -1,6 +1,7 @@
 # TaskFlow
-* Vibe Coded using Claude
-A native macOS menu bar app for managing daily tasks, long-term goals, and quick notes. Lives in your menu bar, slides open from the right edge of your screen, and optionally shows a desktop widget with a clock and task summary.
+
+- Vibe Coded using Claude
+  A native macOS menu bar app for managing daily tasks, long-term goals, and quick notes. Lives in your menu bar, slides open from the right edge of your screen, and optionally shows a desktop widget with a clock and task summary.
 
 ![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue) ![Swift](https://img.shields.io/badge/Swift-5.9-orange) ![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-green) ![SwiftData](https://img.shields.io/badge/SwiftData-✓-green) [![Release](https://img.shields.io/github/v/release/fathah/task-flow-macos?label=latest&color=brightgreen)](https://github.com/fathah/task-flow-macos/releases/latest)
 
@@ -58,16 +59,21 @@ This creates `TaskFlow.xcodeproj` from the `project.yml` spec.
 ### 4. Build and run
 
 **Option A — Xcode:**
+
 ```bash
 open TaskFlow.xcodeproj
 ```
+
 Then press `Cmd + R` to build and run.
 
 **Option B — Command line:**
+
 ```bash
 xcodebuild -project TaskFlow.xcodeproj -scheme TaskFlow -configuration Debug build
 ```
+
 Then open the built app:
+
 ```bash
 open ~/Library/Developer/Xcode/DerivedData/TaskFlow-*/Build/Products/Debug/TaskFlow.app
 ```
@@ -124,18 +130,19 @@ TaskFlow/
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
-| UI Framework | SwiftUI |
-| Data Persistence | SwiftData (SQLite) |
-| Window Management | AppKit (NSPanel, NSStatusItem) |
-| Project Generation | xcodegen |
-| Minimum Target | macOS 14.0 Sonoma |
-| Font | [Manrope](https://fonts.google.com/specimen/Manrope) (falls back to system font if not installed) |
+| Component          | Technology                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| UI Framework       | SwiftUI                                                                                           |
+| Data Persistence   | SwiftData (SQLite)                                                                                |
+| Window Management  | AppKit (NSPanel, NSStatusItem)                                                                    |
+| Project Generation | xcodegen                                                                                          |
+| Minimum Target     | macOS 14.0 Sonoma                                                                                 |
+| Font               | [Manrope](https://fonts.google.com/specimen/Manrope) (falls back to system font if not installed) |
 
 ## Data Storage
 
 All data is stored locally at:
+
 ```
 ~/Library/Application Support/default.store
 ```

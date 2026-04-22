@@ -42,7 +42,7 @@ struct TodayView: View {
                         // Completion ring
                         ZStack {
                             Circle()
-                                .stroke(Color.white.opacity(0.08), lineWidth: 3)
+                                .stroke(Theme.Colors.track, lineWidth: 3)
                                 .frame(width: 44, height: 44)
                             Circle()
                                 .trim(from: 0, to: completionPercent)
@@ -98,12 +98,12 @@ struct TodayView: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 12)
-            .background(.ultraThinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .overlay(
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .stroke(
-                        Color.white.opacity(isInputFocused ? 0.20 : 0.08),
+                        isInputFocused ? Theme.Colors.inputFocusBorder : Theme.Colors.inputBorder,
                         lineWidth: 0.5
                     )
             )

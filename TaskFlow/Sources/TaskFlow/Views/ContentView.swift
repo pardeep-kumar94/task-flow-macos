@@ -26,13 +26,7 @@ struct ContentView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            LinearGradient(
-                colors: [Theme.Colors.bgTop, Theme.Colors.bgMid, Theme.Colors.bgBottom],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
+        .background(.windowBackground)
         .onAppear {
             iconManager.update(modelContext: modelContext)
         }

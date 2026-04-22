@@ -47,11 +47,11 @@ struct NotesView: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 12)
-            .background(.ultraThinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .overlay(
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .stroke(Color.white.opacity(isInputFocused ? 0.20 : 0.08), lineWidth: 0.5)
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .stroke(isInputFocused ? Theme.Colors.inputFocusBorder : Theme.Colors.inputBorder, lineWidth: 0.5)
             )
             .padding(.horizontal, Theme.Dimensions.contentPadding)
             .padding(.bottom, 12)
