@@ -16,10 +16,6 @@ A native macOS menu bar app for managing daily tasks, long-term goals, and quick
 - **Local Only** — All data stays on your machine via SwiftData (SQLite). No accounts, no cloud.
 - **Glassmorphic UI** — Vibrant teal gradient background with frosted glass cards using Apple's native `.ultraThinMaterial`.
 
-## Screenshots
-
-> Add your screenshots here
-
 ## Requirements
 
 - macOS 14.0 (Sonoma) or later
