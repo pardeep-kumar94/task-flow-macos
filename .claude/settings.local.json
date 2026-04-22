@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(swift build:*)",
+      "Bash(cd /Users/pardeepkumar/code/self-projects/desktop-task-widget/TaskFlow && xcodebuild build -scheme TaskFlow -destination 'platform=macOS' 2>&1 | tail -20)",
+      "Bash(open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)",
+      "Bash(xcodebuild build:*)",
+      "Bash(pkill -f TaskFlow.app 2>/dev/null; sleep 0.5; open /Users/pardeepkumar/Library/Developer/Xcode/DerivedData/TaskFlow-fgdlwkanonwwhsfszdthdlqaeoeg/Build/Products/Debug/TaskFlow.app)"
+    ]
+  }
+}

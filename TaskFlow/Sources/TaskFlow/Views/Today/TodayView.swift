@@ -6,6 +6,7 @@ struct TodayView: View {
     @Query private var allTasks: [DailyTask]
     @State private var rolloverService = DayRolloverService()
     @State private var newTaskTitle = ""
+    @State private var editingTaskID: PersistentIdentifier?
     @FocusState private var isInputFocused: Bool
 
     private var todayTasks: [DailyTask] {
@@ -128,12 +129,15 @@ struct TodayView: View {
                     }
 
                     ForEach(todayTasks) { task in
-                        TaskRowView(task: task)
+                        TaskRowView(task: task, editingTaskID: $editingTaskID)
                             .transition(.asymmetric(
                                 insertion: .move(edge: .top).combined(with: .opacity),
                                 removal: .move(edge: .trailing).combined(with: .opacity)
                             ))
                             .contextMenu {
+                                Button("Edit") {
+                                    editingTaskID = task.persistentModelID
+                                }
                                 Button("Delete", role: .destructive) {
                                     withAnimation(.spring(response: 0.3)) {
                                         modelContext.delete(task)
